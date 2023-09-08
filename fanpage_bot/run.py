@@ -8,3 +8,4 @@ if __name__ == '__main__':
     g.login()
     g.get_user_links()
     # g.browser.close()
+    
