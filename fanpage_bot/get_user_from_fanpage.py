@@ -14,8 +14,8 @@ import random
 class GET_USER_FFANPAGE():
     def __init__(self):
 
-        self.username = "yelan482@gmail.com"
-        self.password = "Linhcute542002"
+        self.username = "Buithingan011195@gmail.com"  # "yelan482@gmail.com"
+        self.password = "iubele"  # "Linhcute542002"
 
         self.df = pd.read_csv("datasets/data.csv")
         # Options
@@ -49,7 +49,7 @@ class GET_USER_FFANPAGE():
     def get_user_link(self):
 
         for i, link in enumerate(self.df["link"]):
-            # print(link)
+            # self.browser.get(link)
             pass
 
         self.browser.get("https://www.facebook.com/DoantruongQuocHoc")
@@ -57,13 +57,18 @@ class GET_USER_FFANPAGE():
 
         self.browser.execute_script(
             "window.scrollTo(0, document.body.scrollHeight);")
-        self.browser.execute_script(
-            "window.scrollTo(0, document.body.scrollHeight);")
+        # sleep(random.randint(2,4))
+        # self.browser.execute_script(
+        #     "window.scrollTo(0, document.body.scrollHeight);")
 
-        for p in range(1, 5):
-
-            post_react = self.browser.find_element(
-                By.XPATH, "/html/body/div[1]/div/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div[2]/div/div[2]/div[3]/div["+str(p)+"]/div/div/div/div/div/div/div/div/div/div/div[2]/div/div/div[4]/div/div/div[1]/div/div[1]/div/div[1]/div/span/div/span[2]/span/span")
+        for p in range(2, 5):
+            print("loop:",p)
+            try:
+                post_react = self.browser.find_element(
+                    By.XPATH, "/html/body/div[1]/div/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div[2]/div/div[2]/div[3]/div["+str(p)+"]/div/div/div/div/div/div/div/div/div/div/div[2]/div/div/div[4]/div/div/div[1]/div/div[1]/div/div[1]/div/span/div/span[2]/span/span")
+            except:
+                post_react = self.browser.find_element(
+                    By.XPATH, "/html/body/div[1]/div/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div[2]/div/div[2]/div[3]/div["+str(p)+"]/div/div/div/div/div/div/div/div/div/div/div[8]/div/div/div[4]/div/div/div[1]/div/div[1]/div/div[1]/div/span/div/span[2]/span/span")
             self.actions.move_to_element(post_react).perform()
             post_react.click()
 
@@ -77,24 +82,23 @@ class GET_USER_FFANPAGE():
 
             last_react_user = None
             while last_react_user is None:
-                try:
+                try: 
                     last_react_user = self.browser.find_element(
                         By.XPATH, "/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/div/div/div/div[2]/div[2]/div[3]/div/div[1]/div["+str(post_react.text)+"]/div/div/div[2]/div[1]/div/div/div/span/div/a")
-                except:
+                except: 
+                
                     try:
                         self.actions.click_and_hold(scroll_element).move_by_offset(
                             0, 150).release().perform()
                     except:
-                        # sleep(1)
-                        current_scroll_position = self.browser.execute_script("return window.scrollY;")
-                        document_height = self.browser.execute_script("return document.body.scrollHeight;")
-                        if current_scroll_position <= document_height:
-                            self.actions.click_and_hold(scroll_element).move_by_offset(
-                            0, -150).release().perform()
+                        while True:
+                            current_scroll_position = self.browser.execute_script(
+                                "return window.scrollY;")
+                            document_height = self.browser.execute_script(
+                                "return document.body.scrollHeight;")
+                            if current_scroll_position <= document_height:
+                                break
 
-
-                    # Phần tử không hiển thị, tiến hành kéo xuống
-                    
             l = []
 
             for i in range(1, int(post_react.text)):
@@ -106,8 +110,10 @@ class GET_USER_FFANPAGE():
                 print(z)
 
             print(len(l))
-            # close_element = 
-            self.browser.find_element(By.XPATH,"/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/div/div/div/div[1]/div/div[2]/div").click()
+            # close_element
+            self.browser.find_element(
+                By.XPATH, "/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/div/div/div/div[1]/div/div[2]/div").click()
+            sleep(random.randint(2,5))
         
         return
 
@@ -115,17 +121,3 @@ class GET_USER_FFANPAGE():
 G = GET_USER_FFANPAGE()
 G.login()
 G.get_user_link()
-# G.runs()
-
-# /html/body/div[1]/div/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div[2]/div/div[2]/div[3]/div[{i}]/div/div/div/div/div/div/div/div/div/div/div[2]/div/div/div[4]/div/div/div[1]/div/div[1]/div/div[1]/span
-# /html/body/div[1]/div/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div[2]/div/div[2]/div[3]/div[3]/div/div/div/div/div/div/div/div/div/div/div[2]/div/div/div[4]/div/div/div[1]/div/div[1]/div/div[1]/span
-
-
-# //*[@id= "mount_0_0_7g"]/div/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div[2]/div/div[2]/div[3]/div[3]/div/div/div/div/div/div/div/div/div/div/div[2]/div/div/div[4]/div/div/div[1]/div/div[1]/div/div[1]/span
-# //*[@id = "mount_0_0_7g"]/div/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div[2]/div/div[2]/div[3]/div[2]/div/div/div/div/div/div/div/div/div/div/div[2]/div/div/div[4]/div/div/div[1]/div/div[1]/div/div[1]/span
-
-# /html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/div/div/div/div[2]/div[2]/div[3]/div/div[1]/div[1]/div/div/div[2]/div[1]/div/div/div/span/div/a
-# /html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/div/div/div/div[2]/div[2]/div[3]/div/div[1]/div[2]/div/div/div[2]/div[1]/div/div/div/span/div/a
-
-# /html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/div/div/div/div[2]/div[2]/div[3]/div/div[1]/div[438]/div/div/div[2]/div[1]/div/div/div/span/div/a
-# /html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/div/div/div/div[2]/div[2]/div[3]/div/div[1]/div["+str(i)+"]/div/div/div[2]/div[1]/div/div/div/span/div/a
